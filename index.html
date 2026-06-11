@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta name="theme-color" content="#2d6a4f">
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>🐾 ZampeVicine</title>
 <link rel="manifest" href="manifest.json">
@@ -11,7 +10,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js"></script>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Inter', system-ui, sans-serif; background: #f0f4f8; }
+body { font-family: 'Inter', system-ui, sans-serif; background: #f0f4f8; overscroll-behavior-y: contain; }
 :root {
   --primary: #2d6a4f; --accent: #f4a261; --danger: #e63946;
   --quiet: #2d6a4f; --moderate: #f4a261; --busy: #e63946;
@@ -592,10 +591,24 @@ function closeSOS() { document.getElementById('sosModal').classList.remove('open
 function confirmSOS() { closeSOS(); alert('✅ SOS inviato! I tuoi contatti sono stati avvisati.'); }
 
 // ─── AUTO-LOGIN ───────────────────────────────────────────────────────────────
-window.onload = () => {
+window.onload = async () => {
   const saved = getSession();
-  if (saved?.access_token) {
-    enterApp(saved);
+  if (!saved?.access_token) return;
+  const expiresAt = saved.expires_at || 0;
+  const now = Math.floor(Date.now() / 1000);
+  if (now < expiresAt - 60) {
+    await enterApp(saved);
+  } else if (saved.refresh_token) {
+    try {
+      const res = await fetch(`${SB_URL}/auth/v1/token?grant_type=refresh_token`, {
+        method: 'POST',
+        headers: { apikey: SB_KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ refresh_token: saved.refresh_token }),
+      });
+      const data = await res.json();
+      if (data.access_token) { saveSession(data); await enterApp(data); }
+      else clearSession();
+    } catch { await enterApp(saved); }
   }
 };
 </script>
