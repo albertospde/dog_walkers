@@ -143,21 +143,21 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #f0f4f8; overscr
     </div>
 
     <!-- LOGIN -->
-    <div id="loginForm" class="auth-form">
+    <form id="loginForm" class="auth-form" onsubmit="doLogin(); return false;">
       <div id="loginError" class="auth-error"></div>
-      <input class="auth-input" id="loginEmail" type="email" placeholder="Email" autocomplete="email"/>
+      <input class="auth-input" id="loginEmail" type="email" placeholder="Email" autocomplete="username"/>
       <input class="auth-input" id="loginPassword" type="password" placeholder="Password" autocomplete="current-password"/>
-      <button class="auth-btn" id="loginBtn" onclick="doLogin()">Entra</button>
-    </div>
+      <button class="auth-btn" id="loginBtn" type="submit">Entra</button>
+    </form>
 
     <!-- REGISTER -->
-    <div id="registerForm" class="auth-form" style="display:none">
+    <form id="registerForm" class="auth-form" style="display:none" onsubmit="doRegister(); return false;">
       <div id="registerError" class="auth-error"></div>
       <div id="registerSuccess" class="auth-success"></div>
 
       <div class="auth-section-label">Il tuo account</div>
       <input class="auth-input" id="regName" type="text" placeholder="Il tuo nome" autocomplete="name"/>
-      <input class="auth-input" id="regEmail" type="email" placeholder="Email" autocomplete="email"/>
+      <input class="auth-input" id="regEmail" type="email" placeholder="Email" autocomplete="username"/>
       <input class="auth-input" id="regPassword" type="password" placeholder="Password (min. 6 caratteri)" autocomplete="new-password"/>
 
       <div class="auth-divider"><hr><span>il tuo cane</span><hr></div>
@@ -165,8 +165,8 @@ body { font-family: 'Inter', system-ui, sans-serif; background: #f0f4f8; overscr
       <input class="auth-input" id="regDogName" type="text" placeholder="Nome del cane"/>
       <input class="auth-input" id="regDogBreed" type="text" placeholder="Razza (es. Labrador)"/>
 
-      <button class="auth-btn" id="registerBtn" onclick="doRegister()">Crea account</button>
-    </div>
+      <button class="auth-btn" id="registerBtn" type="submit">Crea account</button>
+    </form>
   </div>
 </div>
 
