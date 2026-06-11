@@ -507,9 +507,9 @@ function updateHourDisplay(h) {
 // ─── BANNER ───────────────────────────────────────────────────────────────────
 function getLevel(h) {
   const pct = mockHeatmap[h] / maxVal;
-  if (pct > 0.65) return { label: 'Molto affollato', color: '#e63946', emoji: '🔴' };
-  if (pct > 0.35) return { label: 'Moderato', color: '#f4a261', emoji: '🟡' };
-  return { label: 'Tranquillo', color: '#2d6a4f', emoji: '🟢' };
+  if (pct > 0.65) return { label: 'Ottimo momento!', color: '#2d6a4f', emoji: '🟢' };
+  if (pct > 0.35) return { label: 'Abbastanza gente', color: '#f4a261', emoji: '🟡' };
+  return { label: 'Pochi in giro', color: '#e63946', emoji: '🔴' };
 }
 
 function updateBanner(h) {
@@ -517,9 +517,9 @@ function updateBanner(h) {
   const banner = document.getElementById('statusBanner');
   banner.style.background = lv.color;
   const msgs = {
-    'Tranquillo': 'Ottimo momento per uscire!',
-    'Moderato': 'Zona moderatamente frequentata',
-    'Molto affollato': 'Zona molto affollata — valuta di aspettare',
+    'Pochi in giro': 'Pochi cani in zona — meglio aspettare',
+    'Abbastanza gente': 'Abbastanza gente in giro — buon momento',
+    'Ottimo momento!': 'Tanta compagnia! Ottimo momento per uscire 🐾',
   };
   banner.textContent = lv.emoji + ' ' + msgs[lv.label];
 }
