@@ -1,0 +1,21 @@
+{
+  "name": "ZampeVicine",
+  "short_name": "ZampeVicine",
+  "description": "Scopri quando uscire con il tuo cane",
+  "start_url": "/dog_walkers/",
+  "display": "standalone",
+  "background_color": "#2d6a4f",
+  "theme_color": "#2d6a4f",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
